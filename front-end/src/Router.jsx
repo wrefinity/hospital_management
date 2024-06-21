@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import { Route, Routes, Navigate, useLocation} from "react-router-dom";
-import { useCookies } from "react-cookie";
+import { Route, Routes, Navigate, useLocation } from "react-router-dom";
+// import { useCookies } from "react-cookie";
 import Dashboard from "./views/Dashboard";
 import Layout from "./components/Layout";
 import LoginScreen from "./views/LoginScreen";
@@ -33,9 +33,15 @@ const Router = () => {
   return (
     <ScrollToTop>
       <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route path="/" element={<LoginScreen/>} exact />
-          <Route path="/dashboard" element={<Dashboard/>} exact />
+        <Route path="/" element={
+            <Layout />
+          }>
+          <Route path="/" element={
+            <PreventMultipleLogin>
+              <LoginScreen />
+            </PreventMultipleLogin>
+            } exact />
+          <Route path="/dashboard" element={<Dashboard />} exact />
           <Route
             path="/login"
             element={
@@ -50,10 +56,11 @@ const Router = () => {
           {/* products routes  */}
           <Route path="/product-list" element={<ProductList />} />
           <Route path="/products/product-detail/:id" element={<ProductInfo />} />
-          <Route path="/products" element={<Products/>} />
-          <Route path="/product-add" element={<ProductAdd />} />
+          <Route path="/products" element={<Products />} />
+          <Route path="/product-add" element={
+            <ProductAdd />} />
           <Route path="/product-edit/:id" element={<ProductEdit />} />
-          <Route path="/categories" element={<Category/>} />
+          <Route path="/categories" element={<Category />} />
 
           {/* deaths routes  */}
           <Route path="/death-add/:patientId" element={<DeathAdd />} />
@@ -63,19 +70,19 @@ const Router = () => {
           <Route path="/history-add/:patientId" element={<MedicalAdd />} />
           <Route path="/history-edit/:patientId/:id" element={<MedicalEdit />} />
           <Route path="/history-list" element={<MedicalList />} />
-          
+
           {/* test routes  */}
           <Route path="/test-add/:patientId" element={<TestAdd />} />
           <Route path="/test-edit/:patientId/:id" element={<TestEdit />} />
           <Route path="/test-list" element={<TestList />} />
-          
+
           {/* user routes  */}
           <Route path="/user-add" element={<UserAdd />} />
           <Route path="/user-edit/:id" element={<UserEdit />} />
           <Route path="/user-list" element={<UserList />} />
           <Route path="/user-info/:id" element={<UserInfo />} />
 
-          <Route path="*" element={<NotFoundPage/>} />
+          <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>
     </ScrollToTop>
@@ -103,8 +110,7 @@ const Router = () => {
 // };
 
 const PreventMultipleLogin = ({ children }) => {
-  const [cookies] = useCookies();
-  const user = cookies.user;
+  const user = JSON.parse(localStorage.getItem("user"))?.token;
   if (user) {
     return <Navigate to="/dashboard" replace />;
   } else {
