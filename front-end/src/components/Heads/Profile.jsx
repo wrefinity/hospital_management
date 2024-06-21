@@ -34,7 +34,7 @@ const Profile = ({handleLogout, user}) => {
                     </li>
 
                     <li>
-                        <Link className="dropdown-item d-flex align-items-center txt-dec" to="/">
+                        <Link className="dropdown-item d-flex align-items-center txt-dec" to="/profile">
                             <i className="bi bi-gear"></i>
                             <span>Account Settings</span>
                         </Link>
@@ -43,12 +43,7 @@ const Profile = ({handleLogout, user}) => {
                         <hr className="dropdown-divider" />
                     </li>
 
-                    <li>
-                        <Link className="dropdown-item d-flex align-items-center txt-dec" to="/">
-                            <i className="bi bi-question-circle"></i>
-                            <span>Need Help?</span>
-                        </Link>
-                    </li>
+                   
                     <li>
                         <hr className="dropdown-divider" />
                     </li>
