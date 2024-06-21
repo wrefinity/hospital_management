@@ -40,3 +40,6 @@ REACT_APP_CLOUDINARY_CLOUD_NAME=
 cd frontend && npm install
 npm start
 ```
+
+
+## note you can visualize the frontend file switch to hms branch
